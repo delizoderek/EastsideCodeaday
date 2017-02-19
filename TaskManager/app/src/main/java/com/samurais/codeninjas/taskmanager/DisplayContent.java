@@ -160,7 +160,7 @@ class DisplayContact extends Activity {
                     Toast.makeText(getApplicationContext(), "not Updated", Toast.LENGTH_SHORT).show();
                 }
             } else{
-                if(mydb.insertContact(name.getText().toString(), phone.getText().toString(),
+                if(mydb.insertData(name.getText().toString(), phone.getText().toString(),
                         email.getText().toString(), street.getText().toString(),
                         place.getText().toString())){
                     Toast.makeText(getApplicationContext(), "done",

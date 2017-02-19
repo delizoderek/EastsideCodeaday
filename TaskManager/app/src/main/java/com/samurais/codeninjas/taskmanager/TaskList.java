@@ -34,6 +34,7 @@ public class TaskList extends Activity {
     private EditText s2;
     private EditText d2;
     private EditText deets2;
+    private TextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class TaskList extends Activity {
         rowLayout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,100);
         rowLayout.gravity = Gravity.CENTER_HORIZONTAL;
 
-        TextView tv = (TextView) findViewById(R.id.textView);
+        tv = (TextView) findViewById(R.id.textView);
 
         SQLiteDatabase mydatabase = openOrCreateDatabase("taskInfo",MODE_PRIVATE,null);
 
@@ -112,7 +113,6 @@ public class TaskList extends Activity {
     }
 
     private void showSimplePopUp() {
-
         AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this);
         helpBuilder.setTitle("Pop Up");
         helpBuilder.setMessage("This is a Simple Pop Up");
@@ -155,6 +155,8 @@ public class TaskList extends Activity {
                 new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
+                        mydb.insertData(tl2.getText().toString(),deets2.getText().toString(),s2.getText().toString(),
+                                t2.getText().toString(),d2.getText().toString());
                         addTask(tl2.getText().toString(),t2.getText().toString());
                     }
                 });
