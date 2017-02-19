@@ -27,9 +27,19 @@ public class TaskList extends Activity {
         setContentView(R.layout.activity_task_list);
         taskList = (LinearLayout)findViewById(R.id.list);
         rowLayout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,100);
+
+        //Popup
+        Button showPopUpButton = (Button) findViewById(R.id.buttonShowPopUp);
+        showPopUpButton.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                showSimplePopUp();
+            }
+        });
     }
 
-    public void addTask(View v){
+    public void addTask(){
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.HORIZONTAL);
         TextView txt = new TextView(this);
@@ -42,17 +52,15 @@ public class TaskList extends Activity {
         root.setBackgroundColor(Color.BLUE);
         root.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,100));
         root.setGravity(Gravity.CENTER_VERTICAL);
-        taskList.addView(root);
-
-        //Popup
-        Button showPopUpButton = (Button) findViewById(R.id.buttonShowPopUp);
-        showPopUpButton.setOnClickListener(new OnClickListener() {
-
+        root.setClickable(true);
+        root.setOnClickListener(new OnClickListener() {
+            boolean open = false;
             @Override
             public void onClick(View v) {
-                showSimplePopUp();
+                addTask();
             }
         });
+        taskList.addView(root);
 
     }
 
@@ -65,7 +73,7 @@ public class TaskList extends Activity {
                 new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
-                        // Do nothing but close the dialog
+                        addTask();
                     }
                 });
 
