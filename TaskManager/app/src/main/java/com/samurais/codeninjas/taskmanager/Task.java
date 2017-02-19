@@ -1,3 +1,5 @@
+package com.samurais.codeninjas.taskmanager;
+
 /**
  * Created by Derek on 2/18/2017.
  */
@@ -22,11 +24,11 @@ public class Task {
     }
 
     public String getSubject(){
-        return subject
+        return subject;
     }
 
     public String getDetails(){
-        return details
+        return details;
     }
 
     public double getDuration(){

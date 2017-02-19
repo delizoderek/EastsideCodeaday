@@ -13,13 +13,12 @@ public class TaskList extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_list);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //requestWindowFeature(Window.FEATURE_NO_TITLE);
 
     }
 
-
     public void addTask(View v){
-        TextView txt =  (TextView)findViewById(R.id.txt1);
-        txt.setText("Clicked");
+        TextView txt = (TextView) findViewById(R.id.txt1);
+        txt.setText(v.getId() + "stuff");
     }
 }

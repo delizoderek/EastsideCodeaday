@@ -23,12 +23,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <LinearLayout
-                android:orientation="horizontal"
+            <Button
+                android:text="Button"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:clickable="true"
-                android:onClick="addTask"></LinearLayout>
+                android:layout_height="wrap_content"
+                android:id="@+id/button2"
+                android:onClick="addTask" />
 
             <TextView
                 android:text="TextView"
