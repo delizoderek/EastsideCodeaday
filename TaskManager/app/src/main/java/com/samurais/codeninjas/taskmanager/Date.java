@@ -4,16 +4,23 @@ package com.samurais.codeninjas.taskmanager;
  */
 
 public class Date{
-    private int month;
-    private int day;
-    private int year;
-    public Date(int m,int d,int y){
-        month = m;
-        day = d;
-        year = y;
-    }
+   //Formatting the date into minutes and hours
+    public String getMethTime(){
+        int x;
+        //if the time is longer than 1 hour
+        //if the time is longer than a day
+        if(x > 60) {
+            if (x / 60 >= 24) {
+                //Calculate the time into days and return
+                return (x / 60) / 24 + " days";
+            } else {
+                //x is less than a 1 hour and can remain in minutes and return the minutes
+                return x + " hrs";
 
-    public int getMonth(){return month;}
-    public int getDay(){return day;}
-    public int getYear(){return year;}
+            }
+        }
+        //return minutes
+        return x + "min";
+
+    }
 }
