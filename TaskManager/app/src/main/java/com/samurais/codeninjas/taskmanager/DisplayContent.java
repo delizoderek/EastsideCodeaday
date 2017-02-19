@@ -43,7 +43,7 @@ class DisplayContact extends Activity {
 
             if(Value>0){
                 //means this is the view part not the add contact part.
-                Cursor rs = mydb.getData(Value);
+                Cursor rs = mydb.getAllData();
                 id_To_Update = Value;
                 rs.moveToFirst();
 
@@ -150,7 +150,7 @@ class DisplayContact extends Activity {
         if(extras !=null) {
             int Value = extras.getInt("id");
             if(Value>0){
-                if(mydb.updateContact(id_To_Update,name.getText().toString(),
+                if(mydb.updateData(id_To_Update,name.getText().toString(),
                         phone.getText().toString(), email.getText().toString(),
                         street.getText().toString(), place.getText().toString())){
                     Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();

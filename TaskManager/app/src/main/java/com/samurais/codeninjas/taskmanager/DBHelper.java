@@ -66,9 +66,9 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor getData(int id) {
+    public Cursor getAllData() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from contacts where id="+id+"", null );
+        Cursor res =  db.rawQuery( "select * from contacts", null );
         return res;
     }
 
@@ -78,7 +78,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return numRows;
     }
 
-    public boolean updateContact (Integer id, String t, String deets, String sub, String req,String d) {
+    public boolean updateData (Integer id, String t, String deets, String sub, String req,String d) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("title", t);
@@ -92,23 +92,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Integer deleteContact (Integer id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete("contacts",
-                "id = ? ",
-                new String[] { Integer.toString(id) });
+        return db.delete("contacts", "id = ? ", new String[] { Integer.toString(id) });
     }
 
-    public ArrayList<String> getAllCotacts() {
-        ArrayList<String> array_list = new ArrayList<String>();
-
-        //hp = new HashMap();
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from contacts", null );
-        res.moveToFirst();
-
-        while(res.isAfterLast() == false){
-            array_list.add(res.getString(res.getColumnIndex(CONTACTS_COLUMN_TITLE)));
-            res.moveToNext();
-        }
-        return array_list;
-    }
 }
