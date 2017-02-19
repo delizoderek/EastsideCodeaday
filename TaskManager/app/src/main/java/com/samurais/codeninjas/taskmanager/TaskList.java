@@ -29,6 +29,11 @@ public class TaskList extends Activity {
     LinearLayout.LayoutParams rowLayout;
     int id_To_Update = 0;
     private DBHelper mydb ;
+    private EditText tl2;
+    private EditText t2;
+    private EditText s2;
+    private EditText d2;
+    private EditText deets2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +49,6 @@ public class TaskList extends Activity {
 
         mydb = new DBHelper(this);
         mydb.onCreate(mydatabase);
-        mydb.insertContact("Essay","This is soon","Homework","6hrs","6-7-8");
 
         //Popup
         Button showPopUpButton = (Button) findViewById(R.id.buttonShowPopUp);
@@ -57,16 +61,16 @@ public class TaskList extends Activity {
         });
     }
 
-    public void addTask(){
+    private void addTask(String til,String sub){
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.HORIZONTAL);
         TextView txt = new TextView(this);
-        txt.setText("Task1");
+        txt.setText(til);
         txt.setWidth(800);
         txt.setPadding(20,0,0,0);
         root.addView(txt);
         TextView txt1 = new TextView(this);
-        txt1.setText("Timer");
+        txt1.setText(sub);
         txt1.setWidth(300);
         root.addView(txt1);
         root.setLayoutParams(rowLayout);
@@ -76,7 +80,7 @@ public class TaskList extends Activity {
             boolean open = false;
             @Override
             public void onClick(View v) {
-                addTask();
+
             }
         });
         taskList.addView(root);
@@ -117,19 +121,19 @@ public class TaskList extends Activity {
         ll.setOrientation(LinearLayout.VERTICAL);
         TextView tl1 = new TextView(this);
         tl1.setText("Title:");
-        EditText tl2 = new EditText(this);
+        tl2 = new EditText(this);
         TextView s1 = new TextView(this);
         s1.setText("Subject:");
-        EditText s2 = new EditText(this);
+        s2 = new EditText(this);
         TextView t1 = new TextView(this);
         t1.setText("Time Required:(minutes)");
-        EditText t2 = new EditText(this);
+        t2 = new EditText(this);
         TextView d1 = new TextView(this);
         d1.setText("Date Due:");
-        EditText d2 = new EditText(this);
+        d2 = new EditText(this);
         TextView deets1 = new TextView(this);
         deets1.setText("Details:");
-        EditText deets2 = new EditText(this);
+        deets2 = new EditText(this);
         ll.addView(tl1);
         ll.addView(tl2);
         ll.addView(s1);
@@ -141,11 +145,17 @@ public class TaskList extends Activity {
         ll.addView(deets1);
         ll.addView(deets2);
         helpBuilder.setView(ll);
-        helpBuilder.setPositiveButton("Ok",
+        helpBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Do Nothing
+            }
+        });
+        helpBuilder.setPositiveButton("Confirm",
                 new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
-                        addTask();
+                        addTask(tl2.getText().toString(),t2.getText().toString());
                     }
                 });
 

@@ -50,7 +50,7 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertContact (String t, String deets, String subject, String req,String d) {
+    public boolean insertData (String t, String deets, String subject, String req,String d) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("title", t);
