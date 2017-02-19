@@ -6,7 +6,7 @@ package com.samurais.codeninjas.taskmanager;
 public class Date{
    //Formatting the date into minutes and hours
     public String getMethTime(){
-        int x;
+        int x = 0;
         //if the time is longer than 1 hour
         //if the time is longer than a day
         if(x > 60) {

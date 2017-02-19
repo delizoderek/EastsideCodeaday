@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextClock;
 import android.widget.TextView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -27,6 +29,7 @@ public class TaskList extends Activity {
         setContentView(R.layout.activity_task_list);
         taskList = (LinearLayout)findViewById(R.id.list);
         rowLayout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,100);
+        rowLayout.gravity = Gravity.CENTER_HORIZONTAL;
 
         //Popup
         Button showPopUpButton = (Button) findViewById(R.id.buttonShowPopUp);
@@ -44,13 +47,14 @@ public class TaskList extends Activity {
         root.setOrientation(LinearLayout.HORIZONTAL);
         TextView txt = new TextView(this);
         txt.setText("Task1");
+        txt.setWidth(800);
+        txt.setPadding(20,0,0,0);
         root.addView(txt);
         TextView txt1 = new TextView(this);
-        txt1.setLayoutParams(rowLayout);
         txt1.setText("Timer");
+        txt1.setWidth(300);
         root.addView(txt1);
-        root.setBackgroundColor(Color.BLUE);
-        root.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,100));
+        root.setLayoutParams(rowLayout);
         root.setGravity(Gravity.CENTER_VERTICAL);
         root.setClickable(true);
         root.setOnClickListener(new OnClickListener() {
@@ -61,7 +65,31 @@ public class TaskList extends Activity {
             }
         });
         taskList.addView(root);
+        taskList.addView(detailsBar());
 
+    }
+
+    private LinearLayout detailsBar(){
+
+        LinearLayout vertDetails = new LinearLayout(this);
+        vertDetails.setOrientation(LinearLayout.VERTICAL);
+        TextView title = new TextView(this);
+        TextView subject = new TextView(this);
+        TextView dueDate = new TextView(this);
+        TextView deets = new TextView(this);
+        title.setText("Title:");
+        title.setWidth(100);
+        subject.setText("Subject:");
+        subject.setWidth(100);
+        dueDate.setText("Date:");
+        dueDate.setWidth(100);
+        deets.setText("Details:");
+        deets.setWidth(100);
+        vertDetails.addView(title);
+        vertDetails.addView(subject);
+        vertDetails.addView(dueDate);
+        vertDetails.addView(deets);
+        return vertDetails;
     }
 
     private void showSimplePopUp() {
@@ -69,6 +97,15 @@ public class TaskList extends Activity {
         AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this);
         helpBuilder.setTitle("Pop Up");
         helpBuilder.setMessage("This is a Simple Pop Up");
+        ScrollView sv = new ScrollView(this);
+        LinearLayout ll = new LinearLayout(this);
+        ll.setOrientation(LinearLayout.VERTICAL);
+        TextView tv = new TextView(this);
+        tv.setText("Details:");
+        EditText tf = new EditText(this);
+        ll.addView(tv);
+        ll.addView(tf);
+        helpBuilder.setView(ll);
         helpBuilder.setPositiveButton("Ok",
                 new DialogInterface.OnClickListener() {
 
