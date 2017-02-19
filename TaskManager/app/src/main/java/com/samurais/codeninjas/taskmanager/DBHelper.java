@@ -6,7 +6,7 @@ package com.samurais.codeninjas.taskmanager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -19,11 +19,12 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "MyDBName.db";
     public static final String CONTACTS_TABLE_NAME = "contacts";
     public static final String CONTACTS_COLUMN_ID = "id";
-    public static final String CONTACTS_COLUMN_NAME = "name";
-    public static final String CONTACTS_COLUMN_EMAIL = "email";
-    public static final String CONTACTS_COLUMN_STREET = "street";
-    public static final String CONTACTS_COLUMN_CITY = "place";
-    public static final String CONTACTS_COLUMN_PHONE = "phone";
+    public static final String CONTACTS_COLUMN_TITLE = "title";
+    public static final String CONTACTS_COLUMN_SUBJECT = "subject";
+    public static final String CONTACTS_COLUMN_REQUIRED = "required"; //Time Required
+    public static final String CONTACTS_COLUMN_DUE = "due";
+    public static final String CONTACTS_COLUMN_DETAILS = "details";
+    //public static final Integer DATABASE_VERSION = 2;
     private HashMap hp;
 
     public DBHelper(Context context) {
@@ -33,29 +34,36 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // TODO Auto-generated method stub
+
+        db.execSQL("DROP TABLE IF EXISTS contacts");
+
         db.execSQL(
                 "create table contacts " +
-                        "(id integer primary key, name text,phone text,email text, street text,place text)"
+                        "(integer id primary key, title text, phone text, subject text, required text, due text, details text)"
         );
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // TODO Auto-generated method stub
-        db.execSQL("DROP TABLE IF EXISTS contacts");
+        //db.execSQL("DROP TABLE IF EXISTS contacts");
         onCreate(db);
     }
 
-    public boolean insertContact (String name, String phone, String email, String street,String place) {
+    public boolean insertContact (String t, String deets, String subject, String req,String d) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("name", name);
-        contentValues.put("phone", phone);
-        contentValues.put("email", email);
-        contentValues.put("street", street);
-        contentValues.put("place", place);
-        db.insert("contacts", null, contentValues);
-        return true;
+        contentValues.put("title", t);
+        contentValues.put("details", deets);
+        contentValues.put("subject", subject);
+        contentValues.put("required", req);
+        contentValues.put("due", d);
+        long result = db.insert("contacts", null, contentValues);
+        if(result == -1){
+            return false;
+        }else {
+            return true;
+        }
     }
 
     public Cursor getData(int id) {
@@ -70,14 +78,14 @@ public class DBHelper extends SQLiteOpenHelper {
         return numRows;
     }
 
-    public boolean updateContact (Integer id, String name, String phone, String email, String street,String place) {
+    public boolean updateContact (Integer id, String t, String deets, String sub, String req,String d) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("name", name);
-        contentValues.put("phone", phone);
-        contentValues.put("email", email);
-        contentValues.put("street", street);
-        contentValues.put("place", place);
+        contentValues.put("title", t);
+        contentValues.put("details", deets);
+        contentValues.put("subject", sub);
+        contentValues.put("required", req);
+        contentValues.put("due", d);
         db.update("contacts", contentValues, "id = ? ", new String[] { Integer.toString(id) } );
         return true;
     }
@@ -98,7 +106,7 @@ public class DBHelper extends SQLiteOpenHelper {
         res.moveToFirst();
 
         while(res.isAfterLast() == false){
-            array_list.add(res.getString(res.getColumnIndex(CONTACTS_COLUMN_NAME)));
+            array_list.add(res.getString(res.getColumnIndex(CONTACTS_COLUMN_TITLE)));
             res.moveToNext();
         }
         return array_list;

@@ -1,6 +1,8 @@
 package com.samurais.codeninjas.taskmanager;
 
 import android.app.Activity;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,10 +21,15 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View.OnClickListener;
 
+import org.w3c.dom.Text;
+
 public class TaskList extends Activity {
 
     LinearLayout taskList;
     LinearLayout.LayoutParams rowLayout;
+    int id_To_Update = 0;
+    private DBHelper mydb ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +37,14 @@ public class TaskList extends Activity {
         taskList = (LinearLayout)findViewById(R.id.list);
         rowLayout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,100);
         rowLayout.gravity = Gravity.CENTER_HORIZONTAL;
+
+        TextView tv = (TextView) findViewById(R.id.textView);
+
+        SQLiteDatabase mydatabase = openOrCreateDatabase("taskInfo",MODE_PRIVATE,null);
+
+        mydb = new DBHelper(this);
+        mydb.onCreate(mydatabase);
+        mydb.insertContact("Essay","This is soon","Homework","6hrs","6-7-8");
 
         //Popup
         Button showPopUpButton = (Button) findViewById(R.id.buttonShowPopUp);
@@ -100,11 +115,31 @@ public class TaskList extends Activity {
         ScrollView sv = new ScrollView(this);
         LinearLayout ll = new LinearLayout(this);
         ll.setOrientation(LinearLayout.VERTICAL);
-        TextView tv = new TextView(this);
-        tv.setText("Details:");
-        EditText tf = new EditText(this);
-        ll.addView(tv);
-        ll.addView(tf);
+        TextView tl1 = new TextView(this);
+        tl1.setText("Title:");
+        EditText tl2 = new EditText(this);
+        TextView s1 = new TextView(this);
+        s1.setText("Subject:");
+        EditText s2 = new EditText(this);
+        TextView t1 = new TextView(this);
+        t1.setText("Time Required:(minutes)");
+        EditText t2 = new EditText(this);
+        TextView d1 = new TextView(this);
+        d1.setText("Date Due:");
+        EditText d2 = new EditText(this);
+        TextView deets1 = new TextView(this);
+        deets1.setText("Details:");
+        EditText deets2 = new EditText(this);
+        ll.addView(tl1);
+        ll.addView(tl2);
+        ll.addView(s1);
+        ll.addView(s2);
+        ll.addView(t1);
+        ll.addView(t2);
+        ll.addView(d1);
+        ll.addView(d2);
+        ll.addView(deets1);
+        ll.addView(deets2);
         helpBuilder.setView(ll);
         helpBuilder.setPositiveButton("Ok",
                 new DialogInterface.OnClickListener() {

@@ -11,6 +11,12 @@
     tools:context="com.samurais.codeninjas.taskmanager.TaskList"
     android:orientation="vertical">
 
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="50dp"

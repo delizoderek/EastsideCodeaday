@@ -12,7 +12,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -34,12 +33,7 @@ class DisplayContact extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_contact);
-        name = (TextView) findViewById(R.id.editTextName);
-        phone = (TextView) findViewById(R.id.editTextPhone);
-        email = (TextView) findViewById(R.id.editTextStreet);
-        street = (TextView) findViewById(R.id.editTextEmail);
-        place = (TextView) findViewById(R.id.editTextCity);
+        //setContentView(R.layout.activity_display_contact);
 
         mydb = new DBHelper(this);
 
@@ -53,27 +47,28 @@ class DisplayContact extends Activity {
                 id_To_Update = Value;
                 rs.moveToFirst();
 
-                String nam = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_NAME));
-                String phon = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_PHONE));
-                String emai = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_EMAIL));
-                String stree = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_STREET));
-                String plac = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_CITY));
+                String title = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_TITLE));
+                String deets = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_DETAILS));
+                String sub = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_SUBJECT));
+                String stree = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_REQUIRED));
+                String du = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_DUE));
 
                 if (!rs.isClosed())  {
                     rs.close();
                 }
+                /*
                 Button b = (Button)findViewById(R.id.button1);
                 b.setVisibility(View.INVISIBLE);
 
-                name.setText((CharSequence)nam);
+                name.setText((CharSequence)title);
                 name.setFocusable(false);
                 name.setClickable(false);
 
-                phone.setText((CharSequence)phon);
+                phone.setText((CharSequence)deets);
                 phone.setFocusable(false);
                 phone.setClickable(false);
 
-                email.setText((CharSequence)emai);
+                email.setText((CharSequence)sub);
                 email.setFocusable(false);
                 email.setClickable(false);
 
@@ -81,9 +76,10 @@ class DisplayContact extends Activity {
                 street.setFocusable(false);
                 street.setClickable(false);
 
-                place.setText((CharSequence)plac);
+                place.setText((CharSequence)du);
                 place.setFocusable(false);
                 place.setClickable(false);
+                */
             }
         }
     }
@@ -92,6 +88,7 @@ class DisplayContact extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
         switch(item.getItemId()) {
+            /*
             case R.id.Edit_Contact:
                 Button b = (Button)findViewById(R.id.button1);
                 b.setVisibility(View.VISIBLE);
@@ -125,7 +122,7 @@ class DisplayContact extends Activity {
                                 mydb.deleteContact(id_To_Update);
                                 Toast.makeText(getApplicationContext(), "Deleted Successfully",
                                         Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                                Intent intent = new Intent(getApplicationContext(),TaskList.class);
                                 startActivity(intent);
                             }
                         })
@@ -142,8 +139,10 @@ class DisplayContact extends Activity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+            */
 
         }
+        return false;
     }
 
     public void run(View view) {
@@ -155,7 +154,7 @@ class DisplayContact extends Activity {
                         phone.getText().toString(), email.getText().toString(),
                         street.getText().toString(), place.getText().toString())){
                     Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                    Intent intent = new Intent(getApplicationContext(),TaskList.class);
                     startActivity(intent);
                 } else{
                     Toast.makeText(getApplicationContext(), "not Updated", Toast.LENGTH_SHORT).show();
@@ -170,7 +169,7 @@ class DisplayContact extends Activity {
                     Toast.makeText(getApplicationContext(), "not done",
                             Toast.LENGTH_SHORT).show();
                 }
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(),TaskList.class);
                 startActivity(intent);
             }
         }
