@@ -21,7 +21,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:id="@+id/list">
 
             <Button
                 android:text="Button"
@@ -30,11 +31,6 @@
                 android:id="@+id/button2"
                 android:onClick="addTask" />
 
-            <TextView
-                android:text="TextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/txt1" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
